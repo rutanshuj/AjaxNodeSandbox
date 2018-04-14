@@ -56,9 +56,26 @@ $(function () {
             contentType: 'application/json',
             data: JSON.stringify({newName: newName}),
             success: function(response){
-                console.log(response);
-                $('#get-button').on('click');
+                console.log(response); //This takes response from the server side and logs it here
+                $('#get-button').click();
             }
         })
     });
+
+    // DELETE
+
+    $('table').on('click', '.delete-button', function(){
+        var rowEl = $(this).closest('tr');
+        var id = rowEl.find('.id').text();
+
+        $.ajax({
+            url: '/products/'+id,
+            method: 'DELETE',
+            contentType: 'application/json',
+            success: function (response) {
+                console.log(response);
+                $('#get-button').click();
+            }
+        })
+    })
 });
