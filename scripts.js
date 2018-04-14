@@ -14,7 +14,7 @@ $(function () {
                    <tr>\
                    <td class ="id">'+product.id+'</td>\
                    <td><input type="text" class="name" value="'+product.name+'"></td>\
-                   <td><button class="update">\
+                   <td><button class="update-button">\
                    UPDATE/PUT</button>\
                    </td>\
                    <td><button class="delete-button">\
@@ -39,6 +39,25 @@ $(function () {
                 console.log(response);
                 createInput.val('');
                 $('#get-button').click();
+            }
+        })
+    });
+
+    //UPDATE/POST
+
+    $('table').on('click', '.update-button', function () {
+        var rowEl = $(this).closest('tr');
+        var id = rowEl.find('.id').text();
+        var newName = rowEl.find('.name').val();
+
+        $.ajax({
+            url:'/products/'+id,
+            method: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify({newName: newName}),
+            success: function(response){
+                console.log(response);
+                $('#get-button').on('click');
             }
         })
     });
